@@ -36,5 +36,22 @@ def home(request: Request):
         {"title": "Gemini-ChatBot"}
     )
 
+@app.post("/api/chat")
+def chat_with_gemini(data: UserMessage):
+    try:
+        response = chats.send_message(
+            message=data.message
+        )
+
+        return {
+            "response": response.text
+        }
+
+    except Exception as e:
+        return {
+            "response" : "Sorry something went wrong",
+            "error" : str(e)
+        }
+
 
 
